@@ -24,13 +24,14 @@
 // OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-#ifndef _MAIN
-#define _MAIN
+#ifndef _GCLIENT_MAIN
+#define _GCLIENT_MAIN
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <string>
+#include <fcntl.h>
 
 namespace GNet {
 class GServer;

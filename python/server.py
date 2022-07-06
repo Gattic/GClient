@@ -1,9 +1,14 @@
 # # Python 3 server example
+import sys
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 
 hostName = "0.0.0.0"
 serverPort = 45022
+
+def print_gserver(pargs):
+    print(pargs)
+    sys.stdout.flush()
 
 class MyServer(BaseHTTPRequestHandler):
 
@@ -14,7 +19,7 @@ class MyServer(BaseHTTPRequestHandler):
 
     # Helper function called in both post and get requests
     def reqHandler(self, isPost):
-        print(self.path)
+        print_gserver(self.path)
         o = urlparse(self.path)
         parsedQuery=parse_qs(o.query)
 
@@ -42,8 +47,8 @@ class MyServer(BaseHTTPRequestHandler):
 
         #if isPost:
         #timestamp=parsedQuery['timestamp']
-        #print(timestamp)
-        print(parsedQuery)
+        #print_gserver(timestamp)
+        print_gserver(parsedQuery)
 
         # TODO: Change name/file based on path
         fname = "python/index.html"
@@ -64,7 +69,7 @@ if __name__ == "__main__":
 
     # Listen
     webServer = HTTPServer((hostName, serverPort), MyServer)
-    print("Server started http://%s:%s" % (hostName, serverPort))
+    print_gserver("Server started http://%s:%s" % (hostName, serverPort))
 
     try:
         webServer.serve_forever()
@@ -72,7 +77,7 @@ if __name__ == "__main__":
         pass
 
     webServer.server_close()
-    print("Server stopped.")
+    print_gserver("Server stopped.")
 
 
 

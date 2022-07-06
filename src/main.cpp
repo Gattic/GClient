@@ -36,7 +36,7 @@
 void RequestListener::run(GNet::GServer* serverInstance)
 {
 	shmea::GString command = "python3 python/server.py";
-	printf("Service Command: %s\n", command.c_str());
+	printf("Running: %s\n", command.c_str());
 	FILE* p = popen(command.c_str(), "r");
 	if(!p)
 	{
@@ -45,14 +45,15 @@ void RequestListener::run(GNet::GServer* serverInstance)
 	}
 
 	// Read the output
-	int ch;
+	int ch = 0;
 	shmea::GString newStr="";
 	while((ch=fgetc(p)) != EOF)
 	{
 		newStr+=ch;
 		printf("%c", ch);
+		//fflush(p);
+		//fflush(stdout);
 	}
 
-	//printf("Server Output: %s\n", newStr.c_str());
 	pclose(p);
 }
