@@ -7,8 +7,14 @@ serverPort = 45022
 
 class MyServer(BaseHTTPRequestHandler):
 
+    def loadFile(self, fname):
+        f = open(fname, "r")
+        lines = f.read()
+        return str(lines)
+
     # Helper function called in both post and get requests
     def reqHandler(self, isPost):
+        print(self.path)
         o = urlparse(self.path)
         parsedQuery=parse_qs(o.query)
 
@@ -34,18 +40,19 @@ class MyServer(BaseHTTPRequestHandler):
 
         # Normal requests now
 
+        #if isPost:
         #timestamp=parsedQuery['timestamp']
         #print(timestamp)
         print(parsedQuery)
 
+        # TODO: Change name/file based on path
+        fname = "python/index.html"
+
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-        if(isPost):
-            self.wfile.write(bytes("hello-post:<br>", "utf-8"))
-        else:
-            self.wfile.write(bytes("hello-get:<br>", "utf-8"))
-        self.wfile.write(bytes(str(parsedQuery), "utf-8"))
+        webFile = self.loadFile(fname)
+        self.wfile.write(bytes(webFile, "utf-8"))
 
     def do_GET(self):
         self.reqHandler(False)
