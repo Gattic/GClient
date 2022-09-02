@@ -35,6 +35,13 @@
  */
 void RequestListener::run(GNet::GServer* serverInstance)
 {
+	
+	// if input from web API.. 
+	
+	// if input from discord.. 
+	
+	// blah
+	
 	shmea::GString command = "python3 python/server.py";
 	printf("Service Command: %s\n", command.c_str());
 	FILE* p = popen(command.c_str(), "r");
