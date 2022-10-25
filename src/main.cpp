@@ -35,6 +35,13 @@
  */
 void RequestListener::run(GNet::GServer* serverInstance)
 {
+	
+	// if input from web API.. 
+	
+	// if input from discord.. 
+	
+	// blah
+	
 	shmea::GString command = "python3 python/server.py";
 	printf("Service Command: %s\n", command.c_str());
 	FILE* p = popen(command.c_str(), "r");
@@ -53,6 +60,28 @@ void RequestListener::run(GNet::GServer* serverInstance)
 		printf("%c", ch);
 	}
 
-	//printf("Server Output: %s\n", newStr.c_str());
+	//XBTUSD ENUM false 100010 100020 true false
+	const vector<shmea::GString> input= newStr.split(" ");
+	
+	// Run an offline historical simulation
+	shmea::GList wData;
+	//ticker
+	wData.addString(input[0]);
+	//newAgg	
+	wData.addInt(input[1]);
+	//guiEnabled	
+	wData.addBoolean(false);
+	//startTs
+	wData.addLong(input[3]);
+	//endTs
+	wData.addLong(input[4]);
+	//tradingActivated
+	wData.addBoolean(input[5]);
+	wData.addBoolean(input[6]);
+	
+	shmea::ServiceData* cSrvc = new shmea::ServiceData(destination, "HistEngine");
+	cSrvc->set("mainSim"+shmea::GString::intTOstring(simCount), wData);
+	serverInstance->send(cSrvc);
+	
 	pclose(p);
 }
