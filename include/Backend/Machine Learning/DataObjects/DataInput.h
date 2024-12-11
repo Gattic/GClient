@@ -14,11 +14,40 @@
 // NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-#ifndef _GLADES_MAIN
-#define _GLADES_MAIN
+#ifndef _GDATAINPUT
+#define _GDATAINPUT
 
-//#include "core/version.h"
+#include "Backend/Database/GTable.h"
 
-// extern Version version;
+namespace glades {
+
+class OHE;
+
+class DataInput
+{
+public:
+
+	const static int CSV = 0;
+	const static int IMAGE = 1;
+	const static int TEXT = 2;
+
+	std::vector<OHE*> OHEMaps;
+	std::vector<bool> featureIsCategorical;
+
+	virtual void import(shmea::GString) = 0;
+
+	virtual shmea::GList getTrainRow(unsigned int) const = 0;
+	virtual shmea::GList getTrainExpectedRow(unsigned int) const = 0;
+
+	virtual shmea::GList getTestRow(unsigned int) const = 0;
+	virtual shmea::GList getTestExpectedRow(unsigned int) const = 0;
+
+	virtual unsigned int getTrainSize() const = 0;
+	virtual unsigned int getTestSize() const = 0;
+	virtual unsigned int getFeatureCount() const = 0;
+
+	virtual int getType() const = 0;
+};
+};
 
 #endif

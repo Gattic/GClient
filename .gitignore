@@ -10,3 +10,4 @@ unit-tests/database/*
 *.swp
 .gdb_history
 *.vim
+logs/

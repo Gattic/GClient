@@ -35,7 +35,7 @@
 #include "main.h"
 
 bool GClient::running = true;
-Version* GClient::version = new Version("0.57");
+Version* GClient::version = new Version("0.58");
 
 /*!
 
@@ -74,7 +74,8 @@ int main(int argc, char* argv[])
 	}
 
 	// Launch the server server
-	serverInstance->run(localOnly);
+	shmea::GString PORT = shmea::GString("45033");
+	serverInstance->run(PORT, localOnly);
 
 	// Launch the gui
 	RequestListener::run(serverInstance);
